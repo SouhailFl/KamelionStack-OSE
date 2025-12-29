@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Reports and outputs
+Reports/
+*.json
+*.html
+*.txt
+scan_report_*.json
+tool_audit_report.json
+
+# Session files
+SESSION_HANDOFF.md
+
+# Dashboard (work in progress)
+dashboard/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# Environment
+.env
+*.env
