@@ -1,0 +1,22 @@
+# Core Web Framework
+Flask==3.0.0
+Flask-CORS==4.0.0
+Werkzeug==3.0.1
+
+# HTTP Requests
+requests==2.31.0
+
+# JWT Authentication
+PyJWT==2.8.0
+
+# Data Processing
+python-dateutil==2.8.2
+
+# Optional: For enhanced features
+beautifulsoup4==4.12.2
+lxml==4.9.3
+cryptography==41.0.7
+
+# Ollama (AI/LLM)
+# Note: Requires Ollama to be installed separately
+# Install from: https://ollama.ai
