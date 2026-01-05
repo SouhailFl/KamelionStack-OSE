@@ -19,6 +19,11 @@ tool_audit_report.json
 # Session files
 SESSION_HANDOFF.md
 
+# Internal scripts (GitHub automation)
+PUSH_TO_GITHUB.bat
+PUSH_TO_GITHUB.py
+GITHUB_PUSH_GUIDE.md
+
 # Dashboard (work in progress)
 dashboard/
 
