@@ -223,49 +223,116 @@ def health_check():
         'timestamp': datetime.now().isoformat()
     })
 
+def clear_screen():
+    """Clear terminal screen"""
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def animate_text(text, delay=0.03):
+    """Print text with typing animation"""
+    for char in text:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(delay)
+    print()
+
+def print_banner():
+    """Animated ASCII banner"""
+    clear_screen()
+    
+    banner = [
+        "\033[38;5;159m██╗  ██╗ █████╗ ███╗   ███╗███████╗██╗     ██╗ ██████╗ ███╗   ██╗███████╗████████╗ █████╗  ██████╗██╗  ██╗",
+        "\033[38;5;123m██║ ██╔╝██╔══██╗████╗ ████║██╔════╝██║     ██║██╔═══██╗████╗  ██║██╔════╝╚══██╔══╝██╔══██╗██╔════╝██║ ██╔╝",
+        "\033[38;5;87m█████╔╝ ███████║██╔████╔██║█████╗  ██║     ██║██║   ██║██╔██╗ ██║███████╗   ██║   ███████║██║     █████╔╝ ",
+        "\033[38;5;51m██╔═██╗ ██╔══██║██║╚██╔╝██║██╔══╝  ██║     ██║██║   ██║██║╚██╗██║╚════██║   ██║   ██╔══██║██║     ██╔═██╗ ",
+        "\033[38;5;51m██║  ██╗██║  ██║██║ ╚═╝ ██║███████╗███████╗██║╚██████╔╝██║ ╚████║███████║   ██║   ██║  ██║╚██████╗██║  ██╗",
+        "\033[38;5;51m╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝\033[0m"
+    ]
+    
+    print("\n")
+    for line in banner:
+        print(line)
+        time.sleep(0.1)
+    
+    print("\n")
+    print("\033[96m" + "="*90 + "\033[0m")
+    animate_text("\033[93m              🔥 AI-POWERED AUTONOMOUS PENETRATION TESTING FRAMEWORK 🔥\033[0m", 0.02)
+    print("\033[96m" + "="*90 + "\033[0m")
+    time.sleep(0.3)
+    
+    # Info section
+    print("\n")
+    animate_text(f"\033[92m[✓] Version:\033[0m {Config.VERSION}", 0.01)
+    animate_text(f"\033[92m[✓] Author:\033[0m Souhail Fellaki", 0.01)
+    animate_text(f"\033[92m[✓] GitHub:\033[0m https://github.com/SouhailFl/KamelionStack-OSE", 0.01)
+    print("\n")
+    time.sleep(0.3)
+
 def initialize_server():
     global llm_client, ai_system, exploit_generator, enhanced_workflow
+    
+    print_banner()
+    
+    print("\033[96m" + "="*90 + "\033[0m")
+    print("\033[93m                              SYSTEM INITIALIZATION\033[0m")
+    print("\033[96m" + "="*90 + "\033[0m")
     print("\n")
-    # Beautiful 4-color gradient at top, solid cyan at bottom
-    # Line 1: Very Very Light Cyan (brightest)
-    print("\033[38;5;159m██╗  ██╗ █████╗ ███╗   ███╗███████╗██╗     ██╗ ██████╗ ███╗   ██╗███████╗████████╗ █████╗  ██████╗██╗  ██╗")
-    # Line 2: Very Light Cyan
-    print("\033[38;5;123m██║ ██╔╝██╔══██╗████╗ ████║██╔════╝██║     ██║██╔═══██╗████╗  ██║██╔════╝╚══██╔══╝██╔══██╗██╔════╝██║ ██╔╝")
-    # Line 3: Light Cyan
-    print("\033[38;5;87m█████╔╝ ███████║██╔████╔██║█████╗  ██║     ██║██║   ██║██╔██╗ ██║███████╗   ██║   ███████║██║     █████╔╝ ")
-    # Line 4: Cyan
-    print("\033[38;5;51m██╔═██╗ ██╔══██║██║╚██╔╝██║██╔══╝  ██║     ██║██║   ██║██║╚██╗██║╚════██║   ██║   ██╔══██║██║     ██╔═██╗ ")
-    # Line 5: Cyan
-    print("\033[38;5;51m██║  ██╗██║  ██║██║ ╚═╝ ██║███████╗███████╗██║╚██████╔╝██║ ╚████║███████║   ██║   ██║  ██║╚██████╗██║  ██╗")
-    # Line 6: Cyan
-    print("\033[38;5;51m╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝\033[0m")
-    print("\n")
-    print("="*70)
-    print("🔥 KameLionStack - LLM Pentesting")
-    print("="*70)
-    print(f"\n📦 Version: {Config.VERSION}")
-    print(f"🤖 LLM: Ollama ({Config.DEFAULT_LLM})")
-    print(f"🌐 Server: http://localhost:{Config.SERVER_PORT}")
-    print(f"\n🚀 Initializing AI agent system...")
+    
+    # Initialize components with animation
+    sys.stdout.write("\033[94m[*] Initializing AI Engine...\033[0m ")
+    sys.stdout.flush()
+    for i in range(3):
+        time.sleep(0.3)
+        sys.stdout.write(".")
+        sys.stdout.flush()
+    
     llm_client = get_ollama_client(Config.DEFAULT_LLM)
     ai_system = AIAgentSystem(llm_client)
-    print(f"✅ {len(ai_system.list_agents())} AI agents loaded")
+    print(" \033[92m✓\033[0m")
+    print(f"    ├─ \033[90mLoaded {len(ai_system.list_agents())} AI agents\033[0m")
+    time.sleep(0.2)
     
-    print(f"\n💥 Loading OWASP 2025 payloads...")
+    sys.stdout.write("\033[94m[*] Loading OWASP 2025 Payloads...\033[0m ")
+    sys.stdout.flush()
+    for i in range(3):
+        time.sleep(0.3)
+        sys.stdout.write(".")
+        sys.stdout.flush()
+    
     payloads = OwaspPayloads.build_database()
     total_payloads = sum(len(data['all_payloads']) for data in payloads.values())
-    print(f"✅ Loaded {total_payloads} OWASP payloads ({len(payloads)} types)")
+    print(" \033[92m✓\033[0m")
+    print(f"    ├─ \033[90m{total_payloads} payloads across {len(payloads)} vulnerability types\033[0m")
+    time.sleep(0.2)
     
-    print(f"\n🔎 Initializing core components...")
+    sys.stdout.write("\033[94m[*] Initializing Tool Orchestrator...\033[0m ")
+    sys.stdout.flush()
+    for i in range(3):
+        time.sleep(0.3)
+        sys.stdout.write(".")
+        sys.stdout.flush()
+    
     exploit_generator = ExploitGenerator()
     enhanced_workflow = EnhancedWorkflowManager()
+    print(" \033[92m✓\033[0m")
+    print("    ├─ \033[90mNmap, Nuclei, SQLMap, Nikto, ffuf, gobuster, subfinder, httpx\033[0m")
+    time.sleep(0.2)
     
-    print(f"✅ All features loaded (ENHANCED workflow with all tools + AI)")
-    print(f"🎯 API: /api/workflow/enhanced")
-    print(f"🎯 API: /api/exploits/generate")
+    print("\n")
+    print("\033[96m" + "="*90 + "\033[0m")
+    print("\033[92m                            ✓ SYSTEM READY ✓\033[0m")
+    print("\033[96m" + "="*90 + "\033[0m")
+    print("\n")
     
-    print(f"\n🌐 Server starting on port {Config.SERVER_PORT}...")
-    print("="*70)
+    print(f"\033[93m🌐 Server:\033[0m http://localhost:{Config.SERVER_PORT}")
+    print(f"\033[93m🎯 Endpoints:\033[0m")
+    print(f"   ├─ \033[90m/api/workflow/enhanced\033[0m (Complete pentesting workflow)")
+    print(f"   └─ \033[90m/api/exploits/generate\033[0m (Generate exploits from results)")
+    print("\n")
+    print("\033[96m" + "="*90 + "\033[0m")
+    print("\033[92m[!] Server starting...\033[0m")
+    print("\033[96m" + "="*90 + "\033[0m")
+    print("\n")
+    time.sleep(0.5)
 
 if __name__ == '__main__':
     initialize_server()

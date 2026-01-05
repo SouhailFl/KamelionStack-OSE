@@ -8,7 +8,7 @@ import json
 from typing import Optional, Dict, Any
 
 class OllamaClient:
-    def __init__(self, base_url="http://localhost:11434", model="llama3.2:3b-instruct-q4_K_M"):
+    def __init__(self, base_url="http://localhost:11434", model="qwen2.5-coder:3b"):
         self.base_url = base_url
         self.model = model
         self.api_url = f"{base_url}/api/generate"
@@ -142,7 +142,7 @@ Provide technical, actionable guidance suitable for a professional security asse
 # Global instance
 _ollama_client = None
 
-def get_ollama_client(model="llama3.2:3b-instruct-q4_K_M") -> OllamaClient:
+def get_ollama_client(model="qwen2.5-coder:3b") -> OllamaClient:
     """Get or create global Ollama client"""
     global _ollama_client
     if _ollama_client is None:
