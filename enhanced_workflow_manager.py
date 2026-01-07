@@ -341,13 +341,25 @@ class EnhancedWorkflowManager:
             
             # Generate exploits for high-severity vulns
             exploits = []
-            high_severity_vulns = [v for v in all_vulns if v.get("severity") == "HIGH"]
+            high_severity_vulns = [v for v in all_vulns if v.get("severity") in ["CRITICAL", "HIGH"]]
             
             logger.info(f"🔨 Generating exploits for {len(high_severity_vulns)} high-severity vulnerabilities...")
             for vuln in high_severity_vulns[:max_iterations]:
-                exploit = self.exploit_generator.generate_exploits([vuln], target)
-                if exploit and exploit.get("exploits"):
-                    exploits.extend(exploit["exploits"])
+                # Convert vulnerability format for exploit generator
+                vuln_type = vuln.get("type", "").lower()
+                
+                if "sql" in vuln_type:
+                    scan_data = {"sql_injection": [{"url": vuln.get("url", ""), "param": vuln.get("parameter", "id"), "payload": vuln.get("payload", "")}]}
+                elif "xss" in vuln_type:
+                    scan_data = {"xss": [{"url": vuln.get("url", ""), "param": vuln.get("parameter", "q"), "payload": vuln.get("payload", "")}]}
+                elif "lfi" in vuln_type or "file" in vuln_type:
+                    scan_data = {"lfi": [{"url": vuln.get("url", ""), "param": vuln.get("parameter", "file"), "payload": vuln.get("payload", "")}]}
+                else:
+                    continue  # Skip unknown types
+                
+                exploit_list = self.exploit_generator.generate_exploits_from_scan(scan_data)
+                if exploit_list:
+                    exploits.extend(exploit_list)
             
             self.results["exploits"] = exploits
             

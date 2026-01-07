@@ -71,7 +71,7 @@ class ReconnaissanceEngine:
         
         # Phase 1: Network mapping
         logger.info("Phase 1/5: Network mapping")
-        nmap_data = self.orchestrator.nmap_scan(target, "full")
+        nmap_data = self.orchestrator.nmap_scan(target, "quick")  # Changed from "full" to "quick"
         self.recon_data["network_map"] = nmap_data
         
         # Phase 2: Subdomain discovery
